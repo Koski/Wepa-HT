@@ -1,5 +1,6 @@
 package wad.timetables.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import wad.timetables.domain.User;
 import wad.timetables.service.UserService;
 
@@ -30,22 +32,23 @@ public class UserController {
     }
     
     @RequestMapping(value="create", method = RequestMethod.POST)
-    public String createUser(Model model,@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
+    public String createUser(RedirectAttributes attrs, @Valid @ModelAttribute("user") User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "register";
         }       
         userService.create(user);
-        model.addAttribute("userCreated", "User " + user.getName() + " created!");
-        return "menu";
+        attrs.addFlashAttribute("userCreated", "User " + user.getName() + " created!");
+        return "redirect:menu";
     } 
     
     @RequestMapping(value="login", method = RequestMethod.POST)
-    public String authenticateUser(Model model, @ModelAttribute("user") User user){
+    public String authenticateUser(Model model, @ModelAttribute("user") User user, HttpSession session){
         if(!userService.authenticateUser(user)) {
             model.addAttribute("loginError", "Username or password was incorrect!");
             return "login";
         }
-        model.addAttribute("user", userService.getUserByName(user.getName()));
-        return "menu";
+        user = userService.getUserByName(user.getName());
+        session.setAttribute("userr", user.getId());
+        return "redirect:menu";
     }
 }

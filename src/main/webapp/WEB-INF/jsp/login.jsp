@@ -13,7 +13,7 @@
     </head>
     <body>
         <a href="menu">Menu</a>
-        <h1>Log in here!!</h1>
+        <h1>Log in here</h1>
         <form action="login" method="POST">
             <label> Username: <input type="text" name="name" id="name"/></label>
             <label> Password: <input type="password" name="password" id="password"/></label><br>

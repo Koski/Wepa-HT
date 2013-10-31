@@ -25,6 +25,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
         User authUser = userService.getUserByName(username);
         
         if (authUser!=null && authUser.getName().equals(username) && authUser.getPassword().equals(password)) {
+            
             List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
             grantedAuths.add(new SimpleGrantedAuthority("user"));
             

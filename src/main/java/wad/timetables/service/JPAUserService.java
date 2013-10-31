@@ -2,6 +2,7 @@ package wad.timetables.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.omg.CORBA.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,13 +44,9 @@ public class JPAUserService implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUserByName(String name) {
-        for (User user : userRepo.findAll()) {
-            if (user.getName().equals(name)) {
-                return user;
-            }
-        }
-        return null;
+        return userRepo.findUserByName(name);
     }
 
     @Override
