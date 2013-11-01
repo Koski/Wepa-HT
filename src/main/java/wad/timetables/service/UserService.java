@@ -8,7 +8,7 @@ public interface UserService {
     User getUserById(Integer id);
     User getUserByName(String name);
     void delete(Integer id);
-    User addFavStop(User user, String stopCode);
-    List<String> listStopCodes(Integer userId);
+    User addFavStop(User user, Long stopCode);
+    List<Long> listStopCodes(Integer userId);
     boolean authenticateUser(User user);
 }

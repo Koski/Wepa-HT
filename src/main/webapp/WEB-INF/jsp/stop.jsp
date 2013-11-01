@@ -7,6 +7,7 @@
         <title>Stop information</title>
     </head>
     <body>
+        <a href="${pageContext.request.contextPath}/app/menu">Menu</a>
         <p>${stop.name}</p>
             <c:forEach var="departure" items="${departures}">
                 <ul>Line: ${departure.lineCode} Time: ${departure.passingTime} Date: ${departure.date}</ul>

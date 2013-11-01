@@ -17,18 +17,21 @@ public class DefaultController {
 UserService userService;
     @RequestMapping("*")
     public String handleDefault(Model model, HttpSession session) {
-       model.addAttribute("userA", userService.getUserById((Integer) session.getAttribute("user")));
+//       model.addAttribute("user", userService.getUserById((Integer) session.getAttribute("user")));
         return "menu";
     }
     
-    @RequestMapping("menu")
+//    @RequestMapping
+//    public String   
+    
+    @RequestMapping(value = "menu", method = RequestMethod.GET)
     public String getMenuPage(Model model, HttpSession session) { 
-        Integer id = (Integer) session.getAttribute("user");
-        User user = null;
-        if (id != null) {
-            user = userService.getUserById(id);
-        }
-        model.addAttribute("userA", user);
+//        Integer id = (Integer) session.getAttribute("user");
+//        User user = null;
+//        if (id != null) {
+//            user = userService.getUserById(id);
+//        }
+        model.addAttribute("user", session.getAttribute("user"));
         return "menu";
     }
     

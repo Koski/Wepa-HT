@@ -48,7 +48,9 @@ public class UserController {
             return "login";
         }
         user = userService.getUserByName(user.getName());
-        session.setAttribute("userr", user.getId());
+        session.setAttribute("user", user);
+        
+        session.setAttribute("stopsOfUser", user);
         return "redirect:menu";
     }
 }

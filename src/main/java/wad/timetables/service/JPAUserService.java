@@ -2,10 +2,11 @@ package wad.timetables.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.omg.CORBA.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wad.timetables.domain.BusStop;
+import wad.timetables.domain.Departure;
 import wad.timetables.domain.User;
 import wad.timetables.repository.UserRepository;
 
@@ -14,6 +15,8 @@ public class JPAUserService implements UserService{
     
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private RESTStopService stopService;
 
     @Override
     @Transactional(readOnly=false)
@@ -21,7 +24,7 @@ public class JPAUserService implements UserService{
         User u = new User();
         u.setName(user.getName());
         u.setPassword(user.getPassword());
-        u.setCodesOfFavStops(new ArrayList<String>());
+        u.setCodesOfFavStops(new ArrayList<Long>());
         return userRepo.save(u);
     }
 
@@ -33,7 +36,7 @@ public class JPAUserService implements UserService{
     
     @Override
     @Transactional(readOnly=true)
-    public List<String> listStopCodes(Integer userId) {
+    public List<Long> listStopCodes(Integer userId) {
         return userRepo.findOne(userId).getCodesOfFavStops();
     }
     
@@ -50,7 +53,7 @@ public class JPAUserService implements UserService{
     }
 
     @Override
-    public User addFavStop(User user, String stopCode) {
+    public User addFavStop(User user, Long stopCode) {
         User u = user;
         u.getCodesOfFavStops().add(stopCode);
         return userRepo.save(u);
@@ -65,4 +68,11 @@ public class JPAUserService implements UserService{
         return false;
     }
     
+    public List<BusStop> listStops(User user) {
+        List<BusStop> busStopList = new ArrayList<BusStop>();
+        for (Long code : user.getCodesOfFavStops()) {
+            busStopList.add(stopService.getStop(code));
+        }
+        return busStopList;
+    }
 }

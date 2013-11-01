@@ -30,12 +30,12 @@ public class User implements Serializable{
     private String password;
     
     @Column(name = "CodesOfFavStops")
-    private List<String> CodesOfFavStops;
+    private List<Long> CodesOfFavStops;
 
     public User() {
     }
 
-    public User(Integer id, String name, String password, List<String> CodesOfFavStops) {
+    public User(Integer id, String name, String password, List<Long> CodesOfFavStops) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -66,11 +66,11 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public List<String> getCodesOfFavStops() {
+    public List<Long> getCodesOfFavStops() {
         return CodesOfFavStops;
     }
 
-    public void setCodesOfFavStops(List<String> CodesOfFavStops) {
+    public void setCodesOfFavStops(List<Long> CodesOfFavStops) {
         this.CodesOfFavStops = CodesOfFavStops;
     }
 
