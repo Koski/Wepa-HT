@@ -7,10 +7,14 @@
         <title>Stop information</title>
     </head>
     <body>
-        <a href="${pageContext.request.contextPath}/app/menu">Menu</a>
+            <a href="${pageContext.request.contextPath}/app/menu">Menu</a>
         <p>${stop.name}</p>
             <c:forEach var="departure" items="${departures}">
                 <ul>Line: ${departure.lineCode} Time: ${departure.passingTime} Date: ${departure.date}</ul>
             </c:forEach>
+                <form action="addStop" method="POST">
+                    <input type="hidden" name="stopCode" value="${stop.code}">
+                    <input type="submit" value="Add">
+                </form>   
     </body>
 </html>

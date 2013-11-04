@@ -30,7 +30,8 @@
                 }
             </style>
             <div id="userStops">
-                <c:if test="${not empty user}">${user.name}</c:if>
+                <p>${stopCode}</p>
+                <c:if test="${not empty user}">${user.name} ${user.id}</c:if>          
                 <c:if test="${empty user}">You haven't logged in!</c:if>
             </div>
     </body>

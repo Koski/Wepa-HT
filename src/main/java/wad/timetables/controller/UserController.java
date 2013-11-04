@@ -53,4 +53,17 @@ public class UserController {
         session.setAttribute("stopsOfUser", user);
         return "redirect:menu";
     }
+    
+    @RequestMapping(value = "stops/addStop", method = RequestMethod.POST)
+    public String addFavStop(RedirectAttributes attrs, @RequestParam("stopCode") Long stopCode, HttpSession session) {
+        if (session.getAttribute("user")==null){
+            return "stop";
+        }
+        User user = (User)session.getAttribute("user");
+        System.out.println("SSSS");
+        System.out.println(user.getName() + " olool " + user.getId());
+        userService.addFavStop(user, stopCode);
+        attrs.addFlashAttribute("stopCode", stopCode);
+        return "redirect:menu";
+    }
 }

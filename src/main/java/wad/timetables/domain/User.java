@@ -21,7 +21,7 @@ public class User implements Serializable{
     
     @NotBlank
     @Length(min = 4, max = 15)
-    @Column(unique = true, name="name")
+    @Column(name="name")
     private String name;
     
     @NotBlank

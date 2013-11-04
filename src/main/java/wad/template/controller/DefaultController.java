@@ -12,20 +12,20 @@ import wad.timetables.service.UserService;
 
 @Controller
 public class DefaultController {
-    
-@Autowired
-UserService userService;
+
+    @Autowired
+    UserService userService;
+
     @RequestMapping("*")
     public String handleDefault(Model model, HttpSession session) {
 //       model.addAttribute("user", userService.getUserById((Integer) session.getAttribute("user")));
         return "menu";
     }
-    
+
 //    @RequestMapping
 //    public String   
-    
     @RequestMapping(value = "menu", method = RequestMethod.GET)
-    public String getMenuPage(Model model, HttpSession session) { 
+    public String getMenuPage(Model model, HttpSession session) {
 //        Integer id = (Integer) session.getAttribute("user");
 //        User user = null;
 //        if (id != null) {
@@ -34,13 +34,14 @@ UserService userService;
         model.addAttribute("user", session.getAttribute("user"));
         return "menu";
     }
-    
+
     @RequestMapping(value = "map", method = RequestMethod.GET)
-    public String showMap(){
-        return "mapstest";   
+    public String showMap() {
+        return "mapstest";
     }
+
     @RequestMapping(value = "geo", method = RequestMethod.GET)
-    public String showGeo(){
-        return "geocode";   
+    public String showGeo() {
+        return "geocode";
     }
 }
