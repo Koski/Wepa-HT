@@ -1,5 +1,7 @@
 package wad.timetables.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import wad.timetables.domain.BusStop;
+import wad.timetables.domain.Departure;
 import wad.timetables.domain.User;
 import wad.timetables.service.UserService;
 
@@ -26,6 +30,7 @@ public class UserController {
         return "register";
     }
     
+//    @PreAuthorize("hasRole('user')")
     @RequestMapping(value="login", method = RequestMethod.GET) 
     public String getLoginPage(@ModelAttribute("user") User user){
         return "login";
@@ -38,7 +43,7 @@ public class UserController {
         }       
         userService.create(user);
         attrs.addFlashAttribute("userCreated", "User " + user.getName() + " created!");
-        return "redirect:menu";
+        return "redirect:login";
     } 
     
     @RequestMapping(value="login", method = RequestMethod.POST)
@@ -54,16 +59,17 @@ public class UserController {
         return "redirect:menu";
     }
     
+//    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/addStop", method = RequestMethod.POST)
     public String addFavStop(RedirectAttributes attrs, @RequestParam("stopCode") Long stopCode, HttpSession session) {
         if (session.getAttribute("user")==null){
             return "stop";
         }
         User user = (User)session.getAttribute("user");
-        System.out.println("SSSS");
-        System.out.println(user.getName() + " olool " + user.getId());
         userService.addFavStop(user, stopCode);
-        attrs.addFlashAttribute("stopCode", stopCode);
-        return "redirect:menu";
+        attrs.addFlashAttribute("user", user);
+        attrs.addFlashAttribute("stopList", userService.getCurrentStopInfo(user));
+        
+        return "redirect:/app/menu";
     }
 }

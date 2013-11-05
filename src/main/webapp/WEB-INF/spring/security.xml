@@ -18,6 +18,6 @@
 
 
     <sec:authentication-manager>
-        <sec:authentication-provider ref="userAuthenticationProvider"/>
+        <sec:authentication-provider ref="userAuthenticationService"/>
     </sec:authentication-manager>
 </beans>

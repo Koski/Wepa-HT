@@ -75,4 +75,13 @@ public class JPAUserService implements UserService{
         }
         return busStopList;
     }
+
+    @Override
+    public List<BusStop> getCurrentStopInfo(User user) {
+        List<BusStop> stops = new ArrayList<BusStop>();
+        for (Long code : user.getCodesOfFavStops()) {
+            stops.add(stopService.getStop(code));
+        }
+        return stops;
+    }
 }

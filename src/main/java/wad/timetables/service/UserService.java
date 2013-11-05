@@ -1,6 +1,7 @@
 package wad.timetables.service;
 
 import java.util.List;
+import wad.timetables.domain.BusStop;
 import wad.timetables.domain.User;
 
 public interface UserService {
@@ -11,4 +12,5 @@ public interface UserService {
     User addFavStop(User user, Long stopCode);
     List<Long> listStopCodes(Integer userId);
     boolean authenticateUser(User user);
+    List<BusStop> getCurrentStopInfo(User user);
 }
