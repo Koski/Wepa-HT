@@ -23,15 +23,21 @@ public class DefaultController {
     }
 
 //    @RequestMapping
-//    public String   
+//    public String    
     @RequestMapping(value = "menu", method = RequestMethod.GET)
     public String getMenuPage(Model model, HttpSession session) {
 //        Integer id = (Integer) session.getAttribute("user");
 //        User user = null;
-//        if (id != null) {
+//        if (id != null) { 
 //            user = userService.getUserById(id);
 //        }
-        model.addAttribute("user", session.getAttribute("user"));
+        Integer userId = (Integer) session.getAttribute("userId");
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            System.out.println("TÄÄLLÄ KÄYTIIN");
+            model.addAttribute("stopList", userService.getCurrentStopInfo(user));
+            model.addAttribute("user", user);
+        }
         return "menu";
     }
 
@@ -45,3 +51,5 @@ public class DefaultController {
         return "geocode";
     }
 }
+//<c:if test="${not empty user}">${user.name} ${user.id}</c:if>          
+//                <c:if test="${empty user}">You haven't logged in!</c:if>

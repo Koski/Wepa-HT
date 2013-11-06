@@ -18,6 +18,7 @@ public class UserAuthenticationService implements AuthenticationProvider{
     @Autowired
     private UserService userService;
     
+    
     @Override
     public Authentication authenticate(Authentication a) throws AuthenticationException {
         String username = a.getName();

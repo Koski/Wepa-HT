@@ -24,11 +24,16 @@ public class SearchController {
     private UserService userService;
 
     @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String searchStops(RedirectAttributes attrs, Model model, @RequestParam(value = "busStop") String searchedStop) {
+    public String searchStops(RedirectAttributes attrs, Model model, @RequestParam(value = "busStop") String searchedStop, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            attrs.addFlashAttribute("stopList", userService.getCurrentStopInfo(user));         
+        }
         attrs.addFlashAttribute("stops", stopService.searchStops(searchedStop));
         return "redirect:menu";
     }
-    
+
 //    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/{code}", method = RequestMethod.GET)
     public String showStop(Model model, @PathVariable Long code) {

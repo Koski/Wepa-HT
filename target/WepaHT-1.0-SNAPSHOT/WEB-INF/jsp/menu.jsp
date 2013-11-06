@@ -32,15 +32,13 @@
             <div id="userStops">
                 
                 <c:forEach var="stop" items="${stopList}">
+                    <p>${stop.name} (${stop.code})</p>
                     <c:forEach var="departure" items="${stop.departures}">
                         <ul>Line: ${departure.lineCode} Time: ${departure.passingTime}</ul>
                     </c:forEach>
-                        <br>
                 </c:forEach>
                         
-                <p>${stopCode}</p>
-                <c:if test="${not empty user}">${user.name} ${user.id}</c:if>          
-                <c:if test="${empty user}">You haven't logged in!</c:if>
+                
  
             </div>
     </body>

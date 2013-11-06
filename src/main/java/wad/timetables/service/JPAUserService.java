@@ -11,15 +11,15 @@ import wad.timetables.domain.User;
 import wad.timetables.repository.UserRepository;
 
 @Service
-public class JPAUserService implements UserService{
-    
+public class JPAUserService implements UserService {
+
     @Autowired
     private UserRepository userRepo;
     @Autowired
     private RESTStopService stopService;
 
     @Override
-    @Transactional(readOnly=false)
+    @Transactional(readOnly = false)
     public User create(User user) {
         User u = new User();
         u.setName(user.getName());
@@ -29,21 +29,24 @@ public class JPAUserService implements UserService{
     }
 
     @Override
-    @Transactional(readOnly=false)
+    @Transactional(readOnly = false)
     public void delete(Integer id) {
         userRepo.delete(id);
     }
-    
+
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public List<Long> listStopCodes(Integer userId) {
         return userRepo.findOne(userId).getCodesOfFavStops();
     }
-    
+
     @Override
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public User getUserById(Integer id) {
-        return userRepo.findOne(id);
+        if (id != null) {
+            return userRepo.findOne(id);
+        }
+        return null;
     }
 
     @Override
@@ -55,19 +58,22 @@ public class JPAUserService implements UserService{
     @Override
     public User addFavStop(User user, Long stopCode) {
         User u = user;
-        u.getCodesOfFavStops().add(stopCode);
-        return userRepo.save(u);
+        if (!u.getCodesOfFavStops().contains(stopCode)) {
+            u.getCodesOfFavStops().add(stopCode);
+            return userRepo.save(u);
+        }
+        return u;
     }
 
     @Override
     public boolean authenticateUser(User user) {
         User u = getUserByName(user.getName());
-        if(u!=null && user.getPassword().equals(u.getPassword())){
+        if (u != null && user.getPassword().equals(u.getPassword())) {
             return true;
         }
         return false;
     }
-    
+
     public List<BusStop> listStops(User user) {
         List<BusStop> busStopList = new ArrayList<BusStop>();
         for (Long code : user.getCodesOfFavStops()) {

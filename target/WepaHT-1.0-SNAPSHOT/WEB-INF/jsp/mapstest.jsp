@@ -23,7 +23,7 @@
             var geocoder;
             
             function codeAddress() {
-                var address = "purotie 8, Helsinki";
+//                var address = "purotie 8, Helsinki";
                 geocoder.geocode( { 'address': address}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         map.setCenter(results[0].geometry.location);
@@ -40,8 +40,8 @@
             function initialize() {
                 geocoder = new google.maps.Geocoder();
                 var mapOptions = {
-                    center: new google.maps.LatLng(254.586, 667.527),
-                    zoom: 10,
+                    center: new google.maps.LatLng(-34.397, 150.644),
+                    zoom: 15,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 map = new google.maps.Map(document.getElementById("map-canvas"),
