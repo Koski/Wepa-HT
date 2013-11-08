@@ -2,10 +2,8 @@ package wad.timetables.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
+
 
 //@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -53,14 +51,17 @@ public class Departure {
     }
     
     public void calculateMinutesUntillPass() {
-     
-                    
-       
+        Date now = new Date();
+        Date passtime = new Date();
+        passtime.setHours(Integer.parseInt(passingTime.substring(0, 2)));
+        passtime.setMinutes(Integer.parseInt(passingTime.substring(2)));
+        this.minutesUntillPassesStop = (int)((passtime.getTime()/60000)-(now.getTime()/60000)); 
     }
     
     public void parsePassingTime(String passingTime) {
         String hours = passingTime.substring(0, 2);
         String minutes = passingTime.substring(2, 4);
+        calculateMinutesUntillPass();
         this.passingTime = hours + ":" + minutes;
     }
     

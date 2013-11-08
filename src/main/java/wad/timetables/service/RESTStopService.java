@@ -14,7 +14,7 @@ import wad.timetables.domain.MyBusStopList;
 
 @Service
 public class RESTStopService {
-    private String stopUrl = "http://api.reittiopas.fi/hsl/prod/?request=stop&user=locust&pass=express&code=";
+    private String stopUrl = "http://api.reittiopas.fi/hsl/prod/?request=stop&user=locust&pass=express&format=json&code=";
     private RestTemplate restTemplate;
     
     @PostConstruct
@@ -38,7 +38,9 @@ public class RESTStopService {
     public BusStop getStop(Long stopCode){
         List<BusStop> stops = restTemplate.getForObject(stopUrl + stopCode, MyBusStopList.class);
         if (!stops.isEmpty()) {
-            return stops.get(0);
+            BusStop stop = stops.get(0);
+            stop.setLatitudeAndLongitude();
+            return stop;
         }
         return null;
     }

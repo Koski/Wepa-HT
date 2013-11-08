@@ -36,7 +36,12 @@ public class SearchController {
 
 //    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/{code}", method = RequestMethod.GET)
-    public String showStop(Model model, @PathVariable Long code) {
+    public String showStop(Model model, @PathVariable Long code, HttpSession session) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        User user = userService.getUserById(userId);
+        if (user!=null){
+            model.addAttribute("user", user);
+        }
         BusStop stop = stopService.getStop(code);
         model.addAttribute("stop", stop);
         model.addAttribute("departures", stopService.getDepartures(stop));

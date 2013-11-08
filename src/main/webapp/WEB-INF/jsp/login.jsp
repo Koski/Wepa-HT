@@ -13,7 +13,6 @@
     </head>
     <body>
         <!--<p>you're already logged in, back to </p>-->
-        <a href="menu">menu</a>
         <h1>Log in here</h1>
         <form action="login" method="POST">
             <label> Username: <input type="text" name="name" id="name"/></label>

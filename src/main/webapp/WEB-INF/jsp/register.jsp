@@ -9,12 +9,13 @@
     </head>
     <body>
         <h1>Registeration</h1>
-        
+
         <form:form commandName="user" action="create" method="POST">
             Username: <form:input path="name"/><form:errors path="name"/><br>
             Password: <form:input type="password" path="password"/><form:errors path="password"/><br>
             <input type="submit" value="Create"/>
         </form:form>
+        <p>${userExistsAlready}</p>
     </body>
-    
+
 </html>

@@ -2,11 +2,8 @@ package wad.timetables.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 import java.util.List;
-//import javax.persistence.Entity;
 
-//@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BusStop {
 
@@ -16,7 +13,40 @@ public class BusStop {
     private String name;
     @JsonProperty("departures")
     private List<Departure> departures;
+    @JsonProperty("wgs_coords")
+    private String wgs_coords;
+    private double latitude;
+    private double longitude;
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+    
+    public String getWgs_coords() {
+        return wgs_coords;
+    }
+
+    public void setWgs_coords(String wgs_coords) {
+        this.wgs_coords = wgs_coords;
+    }
+    
+    public void setLatitudeAndLongitude() { 
+        this.latitude = Double.parseDouble(this.wgs_coords.split(",")[1]);
+        this.longitude = Double.parseDouble(this.wgs_coords.split(",")[0]);
+    }
+    
     public Long getCode() {
         return code;
     }
@@ -40,7 +70,7 @@ public class BusStop {
     public void setDepartures(List<Departure> departures) {
         this.departures = departures;
     }
-
+    
     public void parseAllDepartures() {
         if (!departures.isEmpty()) {
             for (Departure departure : departures) {

@@ -18,7 +18,6 @@ public class DefaultController {
 
     @RequestMapping("*")
     public String handleDefault(Model model, HttpSession session) {
-//       model.addAttribute("user", userService.getUserById((Integer) session.getAttribute("user")));
         return "menu";
     }
 
@@ -26,15 +25,10 @@ public class DefaultController {
 //    public String    
     @RequestMapping(value = "menu", method = RequestMethod.GET)
     public String getMenuPage(Model model, HttpSession session) {
-//        Integer id = (Integer) session.getAttribute("user");
-//        User user = null;
-//        if (id != null) { 
-//            user = userService.getUserById(id);
-//        }
+
         Integer userId = (Integer) session.getAttribute("userId");
         User user = userService.getUserById(userId);
         if (user != null) {
-            System.out.println("TÄÄLLÄ KÄYTIIN");
             model.addAttribute("stopList", userService.getCurrentStopInfo(user));
             model.addAttribute("user", user);
         }

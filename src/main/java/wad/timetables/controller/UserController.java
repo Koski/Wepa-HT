@@ -30,7 +30,7 @@ public class UserController {
 
 //    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String getLoginPage(@ModelAttribute("user") User user) {
+    public String getLoginPage() {
         return "login";
     }
 
@@ -39,8 +39,11 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.create(user);
-        attrs.addFlashAttribute("userCreated", "User " + user.getName() + " created!");
+        User created = userService.create(user);
+        if (created==null) {
+            attrs.addFlashAttribute("userExistsAlready", user.getName() + " already exists. Try a different name");
+            return "redirect:register";
+        }
         return "redirect:login";
     }
 
@@ -50,7 +53,6 @@ public class UserController {
             model.addAttribute("loginError", "Username or password was incorrect!");
             return "login";
         }
-
         user = userService.getUserByName(user.getName());
         if (user != null) {
             session.setAttribute("userId", user.getId());
@@ -62,7 +64,7 @@ public class UserController {
 //    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/addStop", method = RequestMethod.POST)
     public String addFavStop(RedirectAttributes attrs, @RequestParam("stopCode") Long stopCode, HttpSession session) {
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("userId") == null) {
             return "stop";
         }
         Integer userId = (Integer) session.getAttribute("userId");
@@ -73,5 +75,11 @@ public class UserController {
             attrs.addFlashAttribute("stopList", userService.getCurrentStopInfo(user));
         }
         return "redirect:/app/menu";
+    }
+    
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:menu";
     }
 }

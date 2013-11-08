@@ -21,6 +21,9 @@ public class JPAUserService implements UserService {
     @Override
     @Transactional(readOnly = false)
     public User create(User user) {
+        if(userRepo.findUserByName(user.getName())!=null) {
+            return null;
+        }
         User u = new User();
         u.setName(user.getName());
         u.setPassword(user.getPassword());
@@ -86,7 +89,9 @@ public class JPAUserService implements UserService {
     public List<BusStop> getCurrentStopInfo(User user) {
         List<BusStop> stops = new ArrayList<BusStop>();
         for (Long code : user.getCodesOfFavStops()) {
-            stops.add(stopService.getStop(code));
+            BusStop stop =stopService.getStop(code);
+            stop.parseAllDepartures();
+            stops.add(stop);
         }
         return stops;
     }
