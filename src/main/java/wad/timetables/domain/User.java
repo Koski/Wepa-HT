@@ -1,7 +1,9 @@
 package wad.timetables.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,8 +33,11 @@ public class User implements Serializable{
     
     @Column(name = "CodesOfFavStops")
     private List<Long> CodesOfFavStops;
+    
 
     public User() {
+        this.CodesOfFavStops = new ArrayList<Long>();
+        
     }
 
     public User(Integer id, String name, String password, List<Long> CodesOfFavStops) {
@@ -74,7 +79,4 @@ public class User implements Serializable{
         this.CodesOfFavStops = CodesOfFavStops;
     }
 
-    
-    
-    
 }

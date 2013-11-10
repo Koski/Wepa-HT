@@ -13,4 +13,5 @@ public interface UserService {
     List<Long> listStopCodes(Integer userId);
     boolean authenticateUser(User user);
     List<BusStop> getCurrentStopInfo(User user);
+    void removeFavoriteStop(User user,Long stopCode);
 }

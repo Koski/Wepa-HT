@@ -16,6 +16,9 @@ public class Departure {
     @JsonProperty("date")
     private String date;
     private int minutesUntillPassesStop;
+
+    public Departure() {
+    }
     
     public int getMinutesUntillPassesStop() {
         return minutesUntillPassesStop;

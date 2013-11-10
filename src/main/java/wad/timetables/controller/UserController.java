@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,24 +24,13 @@ public class UserController {
     @Autowired
     UserAuthenticationService authService;
 
-    @RequestMapping(value = "register", method = RequestMethod.GET)
-    public String getRegisterationPage(@ModelAttribute("user") User user) {
-        return "register";
-    }
-
-//    @PreAuthorize("hasRole('user')")
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String getLoginPage() {
-        return "login";
-    }
-
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String createUser(RedirectAttributes attrs, @Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
         User created = userService.create(user);
-        if (created==null) {
+        if (created == null) {
             attrs.addFlashAttribute("userExistsAlready", user.getName() + " already exists. Try a different name");
             return "redirect:register";
         }
@@ -61,11 +51,10 @@ public class UserController {
         return "redirect:menu";
     }
 
-//    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/addStop", method = RequestMethod.POST)
     public String addFavStop(RedirectAttributes attrs, @RequestParam("stopCode") Long stopCode, HttpSession session) {
         if (session.getAttribute("userId") == null) {
-            return "stop";
+            return "redirect:/app/menu";
         }
         Integer userId = (Integer) session.getAttribute("userId");
         User user = userService.getUserById(userId);
@@ -76,10 +65,21 @@ public class UserController {
         }
         return "redirect:/app/menu";
     }
-    
+
     @RequestMapping(value = "logout", method = RequestMethod.POST)
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:menu";
+    }
+
+    @RequestMapping(value = "remove/{stopCode}", method = RequestMethod.GET)
+    public String removeFavStop(HttpSession session, @PathVariable Long stopCode) {
+        if (session.getAttribute("userId") == null) {
+            return "menu";
+        }
+        Integer userId = (Integer) session.getAttribute("userId");
+        User user = userService.getUserById(userId);
+        userService.removeFavoriteStop(user, stopCode);
+        return "redirect:/app/menu";
     }
 }

@@ -2,7 +2,6 @@ package wad.timetables.controller;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +33,6 @@ public class SearchController {
         return "redirect:menu";
     }
 
-//    @PreAuthorize("hasRole('user')")
     @RequestMapping(value = "stops/{code}", method = RequestMethod.GET)
     public String showStop(Model model, @PathVariable Long code, HttpSession session) {
         Integer userId = (Integer)session.getAttribute("userId");

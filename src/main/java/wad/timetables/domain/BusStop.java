@@ -22,6 +22,9 @@ public class BusStop {
         return latitude;
     }
 
+    public BusStop() {
+    }
+
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
@@ -72,7 +75,7 @@ public class BusStop {
     }
     
     public void parseAllDepartures() {
-        if (!departures.isEmpty()) {
+        if (departures!=null) {
             for (Departure departure : departures) {
                 departure.parsePassingTime(departure.getPassingTime());
                 departure.parseLineCode(departure.getLineCode());

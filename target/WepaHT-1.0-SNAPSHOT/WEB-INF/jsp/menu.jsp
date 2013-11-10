@@ -23,19 +23,18 @@
         <c:forEach var="stop" items="${stops}">
             <ol><a href="stops/${stop.code}">${stop.name} ${stop.code} </a></ol>
         </c:forEach>
-        
-            
+                 
             <style>
                 #userStops {
                     position: absolute;
-                    left: 25%;
+                    left: 30%;
                     top: 15px;
                     font-size: large;
                 }
                 #userLogged {
                     position: absolute;
                     top: 15px;
-                    left: 15%
+                    left: 20%
                 }
                 html{
                     list-style: none;

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wad.timetables.domain.BusStop;
-import wad.timetables.domain.Departure;
 import wad.timetables.domain.User;
 import wad.timetables.repository.UserRepository;
 
@@ -27,7 +26,7 @@ public class JPAUserService implements UserService {
         User u = new User();
         u.setName(user.getName());
         u.setPassword(user.getPassword());
-        u.setCodesOfFavStops(new ArrayList<Long>());
+//        u.setCodesOfFavStops(new ArrayList<Long>());
         return userRepo.save(u);
     }
 
@@ -59,6 +58,7 @@ public class JPAUserService implements UserService {
     }
 
     @Override
+    @Transactional(readOnly=false)
     public User addFavStop(User user, Long stopCode) {
         User u = user;
         if (!u.getCodesOfFavStops().contains(stopCode)) {
@@ -69,6 +69,7 @@ public class JPAUserService implements UserService {
     }
 
     @Override
+    @Transactional(readOnly=true)
     public boolean authenticateUser(User user) {
         User u = getUserByName(user.getName());
         if (u != null && user.getPassword().equals(u.getPassword())) {
@@ -77,15 +78,9 @@ public class JPAUserService implements UserService {
         return false;
     }
 
-    public List<BusStop> listStops(User user) {
-        List<BusStop> busStopList = new ArrayList<BusStop>();
-        for (Long code : user.getCodesOfFavStops()) {
-            busStopList.add(stopService.getStop(code));
-        }
-        return busStopList;
-    }
 
     @Override
+    @Transactional(readOnly=true)
     public List<BusStop> getCurrentStopInfo(User user) {
         List<BusStop> stops = new ArrayList<BusStop>();
         for (Long code : user.getCodesOfFavStops()) {
@@ -95,4 +90,14 @@ public class JPAUserService implements UserService {
         }
         return stops;
     }
+
+    @Override
+    @Transactional(readOnly=false)
+    public void removeFavoriteStop(User user, Long stopCode) {
+        List<Long> stopCodes = user.getCodesOfFavStops();
+        stopCodes.remove(stopCode);
+        userRepo.save(user);
+    }
+
+    
 }
