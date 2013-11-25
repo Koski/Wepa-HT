@@ -1,0 +1,13 @@
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/service/UserService.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/service/JsonApiService.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/service/RESTStopService.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/service/JPAUserService.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/domain/BusStop.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/controller/PageController.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/service/UserAuthenticationService.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/controller/SearchController.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/repository/UserRepository.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/domain/User.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/controller/UserController.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/domain/Departure.java
+/cs/fs/home/anttkari/NetBeansProjects/wepaHT/src/main/java/wad/timetables/domain/MyBusStopList.java

@@ -1,0 +1,14 @@
+wad/timetables/service/UserAuthenticationService$1.class
+wad/timetables/controller/SearchController.class
+wad/timetables/service/RESTStopService.class
+wad/timetables/domain/MyBusStopList.class
+wad/timetables/service/JPAUserService.class
+wad/timetables/service/UserAuthenticationService.class
+wad/timetables/service/UserService.class
+wad/timetables/service/JsonApiService.class
+wad/timetables/controller/PageController.class
+wad/timetables/repository/UserRepository.class
+wad/timetables/domain/Departure.class
+wad/timetables/domain/User.class
+wad/timetables/domain/BusStop.class
+wad/timetables/controller/UserController.class

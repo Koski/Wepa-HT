@@ -23,8 +23,8 @@
                 height: 400px;
                 width: 400px;
                 position: absolute;
-                top: 40px;
-                left: 15%;
+                top: 10px;
+                left: 400px;
             }
             html {
                 list-style: none;

@@ -26,13 +26,13 @@
                  
             <style>
                 #userStops {
-                    position: absolute;
-                    left: 30%;
+                    position: fixed;
+                    left: 35%;
                     top: 15px;
                     font-size: large;
                 }
                 #userLogged {
-                    position: absolute;
+                    position: fixed;
                     top: 15px;
                     left: 20%
                 }
